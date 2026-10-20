@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CX Impact Simulator · Protect Every Customer</title>
+<style>
+:root{--bg:#f4f5f9;--fg:#14141c;--mut:#6a6b7d;--card:#fff;--bd:#e2e3ec;--ac:#0f766e;--ac2:#14b8a6;--ok:#0f7a4f;--bad:#c4372a;--add:#e2f5ea;--chg:#fff3d1;--soft:#eef0f7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0d0e;--fg:#ecf3f2;--mut:#93a5a3;--card:#121819;--bd:#222d2e;--ac:#2dd4bf;--ac2:#0f766e;--ok:#3ddc97;--bad:#ff7064;--add:#0f2a1f;--chg:#2e2711;--soft:#1a2223}}
+:root[data-theme="dark"]{--bg:#0a0d0e;--fg:#ecf3f2;--mut:#93a5a3;--card:#121819;--bd:#222d2e;--ac:#2dd4bf;--ac2:#0f766e;--ok:#3ddc97;--bad:#ff7064;--add:#0f2a1f;--chg:#2e2711;--soft:#1a2223}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:30}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--ac2),var(--ac));display:grid;place-items:center}.logo svg{width:22px;height:22px;fill:#fff}
+.brand b{display:block;line-height:1.1}.brand small{color:var(--mut)}.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.chip{font-size:12px;padding:4px 10px;border-radius:99px;background:var(--soft);color:var(--mut)}
+button{font:inherit;font-size:14px;border:1px solid var(--bd);background:var(--card);color:var(--fg);padding:8px 14px;border-radius:10px;cursor:pointer}button:hover:not(:disabled){border-color:var(--ac)}button.p{background:var(--ac2);border-color:var(--ac2);color:#fff;font-weight:600}button.r{border-color:var(--bad);color:var(--bad)}button:disabled{opacity:.4;cursor:not-allowed}
+.next{background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff;padding:10px 18px;font-weight:500}.next span{opacity:.85;font-weight:400;margin-right:6px}
+main{max-width:1120px;margin:0 auto;padding:20px 16px 48px}.g{display:grid;gap:18px}@media(min-width:900px){.g{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}.side{position:sticky;top:130px;align-self:start}}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:16px}.h{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:16px;font-weight:650}.n{width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--ac);display:grid;place-items:center;font-size:12px;font-weight:700}
+.q{background:var(--soft);border-radius:10px;padding:12px 14px;margin-bottom:12px}.mut{color:var(--mut);font-size:13px}.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;margin-bottom:14px}.t{background:var(--soft);border-radius:12px;padding:10px 12px}.t b{font-size:24px;display:block;line-height:1.2}.t span{font-size:12px;color:var(--mut)}.t.o b{color:var(--ok)}
+.fx{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--bd)}.fx:first-of-type{border-top:0}.fx input{margin-top:5px}
+.ban{padding:12px 14px;border-radius:12px;font-weight:600;margin-bottom:12px}.ban.bad{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}.ban.ok{background:var(--add);color:var(--ok)}
+.chk{padding:3px 0}.bad{color:var(--bad)}.ok{color:var(--ok)}
+.d{border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-top:6px}.dr{display:grid;grid-template-columns:minmax(0,170px) 1fr;gap:4px 12px;padding:9px 12px;border-top:1px solid var(--bd);font-size:13px}.dr:first-child{border-top:0}.dr.a{background:var(--add)}.dr.m{background:var(--chg)}code{font:12px ui-monospace,Menlo,monospace}
+.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bd);font-size:13px}.log{max-height:200px;overflow:auto;font:12px/1.5 ui-monospace,Menlo,monospace;background:var(--soft);border-radius:10px;padding:10px;margin-top:10px}
+.bar{height:8px;border-radius:9px;background:var(--soft);overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--ac2);transition:width .4s}
+details{margin-bottom:10px}summary{cursor:pointer;font-weight:600}pre{background:var(--soft);padding:12px;border-radius:10px;overflow-x:auto;font-size:12px}
+dialog{max-width:540px;width:calc(100% - 32px);border:1px solid var(--bd);border-radius:18px;background:var(--card);color:var(--fg);padding:22px}dialog::backdrop{background:#0009}li{margin:6px 0}ol{padding-left:20px}
+</style></head><body>
+<div id="app"></div>
+<dialog id="G"><h2 style="margin-top:0">How to use this demo</h2>
+<p>An AI support agent wants to email <b>500 customers</b> about a planned service disruption. It may not queue or send anything until the send has been simulated.</p>
+<ol><li><b>Draft the send.</b> The agent pulls the 500-row segment as it is.</li><li><b>Read the simulation.</b> Nothing is queued yet. Red problems block approval. Switch fixes on one by one, or press “Apply simulator’s fix”.</li><li><b>Approve &amp; execute</b> when every check is green. The list is rechecked right before sending, then sent in batches.</li><li><b>Stop &amp; roll back</b> any time while sending: queued messages are cancelled, and sent ones get a recorded correction.</li></ol>
+<p class="mut">To see the safety net work, tick the failure test before approving. Approval is not a confirm dialog: it unlocks only when computed checks pass. Architecture and thesis are at the bottom.</p>
+<button class="p" onclick="G.close()">Got it</button></dialog>
+<script>
+const $=s=>document.querySelector(s);
+const AFF=['Seef','Juffair','Manama'],FIX={dup:'Remove duplicate contacts',closed:'Exclude closed accounts',dnc:'Exclude do-not-contact customers',area:'Exclude customers outside the affected area',vip:'Route account-managed customers to their manager',name:'Use “Dear customer” when the name is missing'};
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+function seed(){const r=rng(7),F=['Ali','Fatima','Hassan','Maryam','Yusuf','Layla','Omar','Noor','Khalid','Sara','Ahmed','Zainab','Mahmood','Huda','Jassim','Aisha'],B=['Riffa','Hidd','Isa Town'];
+const C=[];for(let i=0;i<500;i++){const f=F[Math.floor(r()*16)];C.push({id:'C-'+String(i+1).padStart(4,'0'),first:f,email:`${f.toLowerCase()}.${i+1}@example.com`,area:AFF[Math.floor(r()*3)],status:'active',dnc:false,vip:false})}
+const idx=[...Array(500).keys()].sort(()=>r()-.5);let p=0;const take=n=>idx.slice(p,p+=n);
+take(24).forEach(i=>{C[i].email=C[(i+250)%500].email});take(31).forEach(i=>{C[i].first=''});take(23).forEach(i=>{C[i].status='closed'});take(11).forEach(i=>{C[i].dnc=true});
+take(34).forEach(i=>{C[i].area=B[Math.floor(r()*3)]});take(9).forEach(i=>{C[i].vip=true});return C}
+let CU=seed(),S,DB=null,store='local',timer=null;
+const fresh=()=>({ph:'intent',F:{},trap:false,M:{},pre:[],corr:[],log:[],pred:null});S=fresh();
+const okLive=c=>c.status==='active'&&!c.dnc&&AFF.includes(c.area)&&!c.vip;
+function plan(F){const seen=new Set(),send=[],skip={dup:0,closed:0,dnc:0,area:0,vip:0},iss={dup:0,closed:0,dnc:0,area:0,vip:0,name:0};
+for(const c of CU){const r=[];if(c.status==='closed')r.push('closed');if(c.dnc)r.push('dnc');if(!AFF.includes(c.area))r.push('area');if(c.vip)r.push('vip');if(seen.has(c.email))r.push('dup');
+const hit=r.filter(k=>F[k]);if(hit.length){skip[hit[0]]++;continue}r.forEach(k=>iss[k]++);if(!c.first&&!F.name)iss.name++;seen.add(c.email);send.push(c.id)}return{send,skip,iss}}
+const MSG={dup:n=>`${n} customers would receive the email twice (duplicate contacts)`,closed:n=>`${n} closed accounts would be emailed`,dnc:n=>`${n} do-not-contact customers (open complaint or legal hold) would be emailed`,area:n=>`${n} customers outside Seef, Juffair and Manama would get an outage notice that doesn’t apply`,vip:n=>`${n} account-managed customers would be emailed instead of their manager`,name:n=>`${n} emails would open with “Dear ,”`};
+const draft=()=>{S.ph='sim';R()},tog=(k,v)=>{S.F[k]=v;R()},fixAll=()=>{S.F={dup:1,closed:1,dnc:1,area:1,vip:1,name:1};R()},reject=()=>{S.ph='rejected';R()};
+const lg=t=>S.log.push(t),byId=id=>CU.find(c=>c.id===id);
+function run(){const p=plan(S.F);S.pred=p;S.M={};p.send.forEach(id=>S.M[id]='queued');lg(`Queued ${p.send.length} messages`);
+if(S.trap){const a=p.send.filter((_,i)=>i%33===5),b=p.send.filter((_,i)=>i%57===9);a.forEach(id=>byId(id).dnc=true);b.forEach(id=>byId(id).status='closed');lg(`⚠ ${a.length+b.length} customer records changed after the simulation (new complaints, closures)`)}
+lg('Pre-send recheck of the recipient list…');let n=0;for(const id of p.send)if(!okLive(byId(id))){S.M[id]='cancelled';S.pre.push(id);n++}
+lg(n?`Recheck cancelled ${n} queued messages before anything was sent`:'Recheck: all recipients still eligible');S.ph='sending';timer=setInterval(tick,900);R()}
+function tick(){const q=Object.keys(S.M).filter(id=>S.M[id]==='queued').slice(0,100);q.forEach(id=>S.M[id]='sent');if(q.length)lg(`Sent batch of ${q.length}`);
+if(!Object.values(S.M).includes('queued')){clearInterval(timer);const s=Object.keys(S.M).filter(id=>S.M[id]==='sent'),bad=s.filter(id=>!S.pred.send.includes(id)||!okLive(byId(id)));lg(bad.length?`Verify: ${bad.length} sent to ineligible customers`:`Verify: all ${s.length} sent messages were on the approved list and eligible`);S.ph='done';save()}R()}
+function rollback(){clearInterval(timer);let c=0,s=0;for(const id in S.M){if(S.M[id]==='queued'){S.M[id]='cancelled';c++}else if(S.M[id]==='sent'){S.corr.push(id);s++}}
+lg(`Rollback: ${c} queued messages cancelled; ${s} already sent, corrective actions recorded`);S.ph='rolled';save();R()}
+function reset(){clearInterval(timer);CU=seed();S={...fresh(),trap:S.trap};if(DB)DB.delete().catch(()=>{});R()}
+async function save(){if(!DB)return;try{await DB.set({json:JSON.stringify({ph:S.ph,M:S.M,pre:S.pre,corr:S.corr,log:S.log,pred:S.pred&&S.pred.send.length})});store='shared'}catch(e){store='readonly'}R()}
+async function boot(){try{const c=window.claude&&await claude.use('db');if(c){DB=c.doc('cx/main');store='shared';const s=await DB.get();if(s.exists){const v=JSON.parse(s.data().json);S.ph=v.ph;S.M=v.M;S.pre=v.pre;S.corr=v.corr;S.log=v.log;S.pred={send:Object.keys(v.M)}}}}catch(e){DB=null;store='local'}R()}
+const cnt=k=>Object.values(S.M).filter(v=>v===k).length,chipTxt={shared:'● Shared outbox database',readonly:'● Database read-only: this tab only',local:'● In-browser store'};
+function R(){const raw=plan({}),sm=plan(S.F),bad=Object.keys(sm.iss).filter(k=>sm.iss[k]),ok=!bad.length;
+const nx={intent:['Start here','Press “Agent: draft send”. The agent will email the whole 500-row segment.'],sim:ok?['Looks safe','Review the preview, then press “Approve & execute”, or reject.']:['Blocked','Switch on the fixes below, or press “Apply simulator’s fix”.'],sending:['Sending','Batches are going out. You can stop and roll back at any time.'],done:['Done','Sent and verified. Rolling back now would record corrections for every sent message.'],rolled:['Rolled back','Queued messages were cancelled and corrections recorded for sent ones.'],rejected:['Rejected','Nothing was queued. Reset to try again.']}[S.ph];
+const tot=S.pred?(S.pred.send?S.pred.send.length:S.pred):0,sent=cnt('sent'),canc=cnt('cancelled');
+let h=`<header class="top"><div class="brand"><span class="logo"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.6-4.6 1.4 1.4-6 6z"/></svg></span><div><b>CX Impact Simulator</b><small>Protect every customer</small></div></div><div class="tools"><span class="chip">${chipTxt[store]}</span><button onclick="G.showModal()">How to use</button><button onclick="reset()">Reset</button></div></header><div class="next"><span>${nx[0]}:</span>${nx[1]}</div><main><div class="g"><div>`;
+h+=`<section class="c"><div class="h"><span class="n">1</span>Request</div><div class="q">“Send the service-disruption email (planned fibre maintenance tonight, 01:00–05:00, Seef, Juffair and Manama) to the 500 customers in the segment.”</div><label class="mut"><input type="checkbox" ${S.trap?'checked':''} ${S.ph==='intent'||S.ph==='sim'?'':'disabled'} onchange="S.trap=this.checked"> Failure test: customer records change after the simulation</label><div class="acts"><button class="p" onclick="draft()" ${S.ph!=='intent'?'disabled':''}>Agent: draft send</button></div></section>`;
+if(S.ph==='sim'){const ex=S.ph==='sim'?sm.skip.dup+sm.skip.closed+sm.skip.dnc+sm.skip.area+sm.skip.vip:0;
+h+=`<section class="c"><div class="h"><span class="n">2</span>Simulation <span class="mut" style="font-weight:400">· nothing queued yet</span></div>
+<div class="tiles"><div class="t"><b>500</b><span>draft recipients</span></div><div class="t"><b>${raw.iss.dup}</b><span>duplicate contacts</span></div><div class="t"><b>${raw.iss.name}</b><span>missing names</span></div><div class="t"><b>${raw.iss.closed+raw.iss.dnc+raw.iss.area+raw.iss.vip}</b><span>should not receive</span></div><div class="t o"><b>${sm.send.length}</b><span>emails with current fixes</span></div></div>
+<div class="ban ${ok?'ok':'bad'}">${ok?'No blocking issues. Safe to approve.':bad.length+' blocking issue(s) remain'}</div>${bad.map(k=>`<div class="chk bad">✕ ${MSG[k](sm.iss[k])}</div>`).join('')}${ok?'<div class="chk ok">✓ Every recipient is unique, eligible and addressed correctly</div><div class="chk ok">✓ List will be rechecked right before sending</div>':''}
+<div class="h" style="margin-top:16px">Fixes <span class="mut" style="font-weight:400">(tweak any)</span></div>${Object.keys(FIX).map(k=>`<label class="fx"><input type="checkbox" ${S.F[k]?'checked':''} onchange="tog('${k}',this.checked)"><span>${FIX[k]}<div class="mut">${k==='name'?raw.iss.name+' customers have no first name on file':raw.iss[k]+' affected'}</div></span></label>`).join('')}
+<div class="h" style="margin-top:16px">Projected changes</div><div class="d"><div class="dr a"><code>+ outbox.messages</code><span>${sm.send.length} rows queued, subject “Planned service disruption tonight”</span></div>${ex?`<div class="dr m"><code>− not sent</code><span>${ex} contacts excluded (${Object.entries(sm.skip).filter(e=>e[1]).map(e=>e[1]+' '+e[0]).join(', ')})</span></div>`:''}<div class="dr m"><code>preview</code><span>${sm.send.slice(0,2).map(id=>`${id}: “Dear ${byId(id).first||'customer'},”`).join(' · ')}${S.F.name?' · blank names: “Dear customer,”':''}</span></div></div>
+<div class="mut" style="margin-top:8px">Rollback path: queued messages are cancelled; sent ones get a correction record.</div>
+<div class="acts"><button class="p" onclick="run()" ${ok?'':'disabled'}>Approve &amp; execute</button><button onclick="fixAll()" ${ok?'disabled':''}>Apply simulator’s fix</button><button onclick="reject()">Reject</button></div></section>`}
+if(['sending','done','rolled'].includes(S.ph)){const pc=tot?Math.round((sent+canc+S.corr.length*0)/tot*100):0;
+h+=`<section class="c"><div class="h"><span class="n">3</span>${S.ph==='sending'?'Sending':S.ph==='done'?'Verified':'Rolled back'}</div>${S.ph==='sending'?`<div class="bar"><i style="width:${pc}%"></i></div><div class="mut">${sent} sent · ${cnt('queued')} still queued · ${S.pre.length} cancelled by the pre-send recheck</div><div class="acts"><button class="r" onclick="rollback()">Stop &amp; roll back</button></div>`:''}
+${S.ph==='done'?`<div class="ban ok">${sent} messages sent. ${S.pre.length?S.pre.length+' were stopped by the pre-send recheck.':'Recheck found no changes.'}</div><div class="acts"><button class="r" onclick="rollback()">Roll back</button></div>`:''}
+${S.ph==='rolled'?`<div class="ban ok">${canc} queued messages cancelled. ${S.corr.length} corrective actions recorded for messages already sent.</div>`:''}</section>`}
+if(S.ph==='rejected')h+=`<section class="c"><div class="ban ok">Nothing was queued or sent.</div></section>`;
+h+=`</div><aside class="side"><section class="c"><div class="h">Live outbox</div><div class="row"><span>Customers in segment</span><b>500</b></div><div class="row"><span>Queued</span><b>${cnt('queued')}</b></div><div class="row"><span>Sent</span><b>${sent}</b></div><div class="row"><span>Cancelled</span><b>${canc}</b></div><div class="row"><span>Corrective actions</span><b>${S.corr.length}</b></div>${S.log.length?`<div class="log">${S.log.map(l=>'› '+l).join('<br>')}</div>`:''}</section></aside></div>
+<section class="c"><details open><summary>Architecture</summary><pre>intent → draft (agent) → SIMULATE (dry run of the send over live customer records)
+      → PRESENT (counts, duplicates, missing fields, who should not receive)
+      → approve / tweak / reject
+      → QUEUE messages → RECHECK list immediately before sending
+           ├─ record changed → cancel that queued message
+           └─ still eligible → send in batches
+      → VERIFY sent vs approved   ·   ROLLBACK: cancel queued, record corrections for sent</pre></details>
+<details open><summary>Failure test</summary><p>The simulation is accurate only for the records it saw. With the failure test on, customers file complaints or close accounts after you approve. The simulator could not have predicted this, so the pre-send recheck re-evaluates every queued recipient against live records and cancels the stale ones before anything leaves.</p></details>
+<details open><summary>Two-year thesis</summary><p>Customer-service agents will soon touch thousands of records a minute, and the costly mistakes will be quiet ones: a duplicate, a missing name, an email to someone with an open legal complaint. “Undo” cannot recall a sent email. Within two years I expect every customer-facing agent to work simulate-first: a dry run that computes who is affected and why, a diff a human can approve in seconds, a recheck at the last moment because the world changes between approval and action, and a rollback that is honest about what cannot be recalled by recording corrective actions. Teams will be judged by how well their simulations match what actually happened. Whoever makes that pattern the default owns customer trust, because speed without a preview just means reaching more customers with the mistake.</p></details>
+<p class="mut">Customers are synthetic. This demo’s outbox is a persisted table, not a live mail provider; the repo version swaps in an SMTP sandbox.</p></section></main>`;
+$('#app').innerHTML=h}
+R();boot();
+</script></body></html>
